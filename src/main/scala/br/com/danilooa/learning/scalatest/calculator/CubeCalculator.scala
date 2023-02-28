@@ -1,4 +1,4 @@
-package br.com.danilooa.learning.scalatest
+package br.com.danilooa.learning.scalatest.calculator
 
 object CubeCalculator extends App {
   def cube(x: Int) = {

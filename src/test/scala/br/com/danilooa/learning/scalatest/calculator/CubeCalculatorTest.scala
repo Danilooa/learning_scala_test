@@ -1,4 +1,4 @@
-package br.com.danilooa.learning.scalatest
+package br.com.danilooa.learning.scalatest.calculator
 
 class CubeCalculatorTest extends org.scalatest.funsuite.AnyFunSuite {
   test("CubeCalculator.cube") {
