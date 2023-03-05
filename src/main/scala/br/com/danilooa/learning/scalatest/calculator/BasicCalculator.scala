@@ -4,4 +4,9 @@ object BasicCalculator {
   def multiple(a: BigDecimal, b: BigDecimal): BigDecimal = {
     a * b
   }
+
+  def divide(a: BigDecimal, b: BigDecimal): BigDecimal = {
+    a / b
+  }
+
 }
