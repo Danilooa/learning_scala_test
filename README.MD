@@ -62,10 +62,16 @@ fixture-context objects are only appropriate if you don't need to clean up the f
 
 ### [WithFixture(NoArgTest)](src/test/scala/br/com/danilooa/learning/scalatest/calculator/WithFixtureNoArgTestExample.scala)
 
-Performs side-effects at the beginning or end of a test but  doesn't actually pass any fixture objects into the test.
+Performs side-effects at the beginning or end of a test but doesn't actually pass any fixture objects into the test.
 
 ### [Loan-fixture methods](src/test/scala/br/com/danilooa/learning/scalatest/calculator/LoanFixtureMethodExampleSpec.scala)
 
 Performs side-effects at the beginning or end of a test and passes any fixture object into the test.
+
+### [WithFixtureOneArgTest](src/test/scala/br/com/danilooa/learning/scalatest/calculator/WithFixtureOneArgTextExample.scala)
+
+Use when you want to pass the same fixture object or objects as a parameter into all or most tests.<br>
+If all or most tests need the same fixture, you can avoid some of the boilerplate of the loan-fixture method approach.
+
 
 

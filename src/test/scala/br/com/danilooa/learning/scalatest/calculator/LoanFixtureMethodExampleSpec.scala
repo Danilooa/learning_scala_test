@@ -29,6 +29,8 @@ object DbServer { // Simulating a database server
   def removeDb(dataBaseDetails: DataBaseDetails) {
     println(s"Removing database ${dataBaseDetails.name}")
   }
+
+
 }
 
 class LoanFixtureMethodExampleSpec extends AnyFlatSpec {
@@ -45,10 +47,26 @@ class LoanFixtureMethodExampleSpec extends AnyFlatSpec {
     }
   }
 
+  def withLog(testCode: (String) => Any) {
+    // setting up the fixture
+    val randomString = randomUUID().toString
+    println(s"-----------> printing something before $randomString")
+    try {
+      testCode(randomString) // "loan" the fixture to the test
+    }
+    finally {
+      // clean up the fixture
+      println(s"-----------> printing something after $randomString")
+    }
+  }
+
+
   // This test needs the database fixture
   "Test code" should "be readable" in withDatabase { (dataBaseDetails) =>
-    println(s"----> Actually testing <---- Inserting rows in the database ${dataBaseDetails.name}")
-    assert(!dataBaseDetails.name.isEmpty)
+     withLog { (randomString) =>
+       println(s"----> Actually testing <---- Inserting rows in the database ${dataBaseDetails.name}")
+       assert(!dataBaseDetails.name.isEmpty)
+     }
   }
 
 }
