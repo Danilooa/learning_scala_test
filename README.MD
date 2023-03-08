@@ -73,5 +73,74 @@ Performs side-effects at the beginning or end of a test and passes any fixture o
 Use when you want to pass the same fixture object or objects as a parameter into all or most tests.<br>
 If all or most tests need the same fixture, you can avoid some of the boilerplate of the loan-fixture method approach.
 
+### Mixing in BeforeAndAfter
 
+- Fixture runs inside the tests (At the beginning and end)<br>
+then if a fixture throws an Exception it will be reported as a test failure
+- BeforeAndAfter runs, as the name suggests, before and after the tests outside them.<br>
+Consequently, if a BeforeAndAfter throws an exception the entire suite aborts
+- The test will run after and before all the tests in the suite
+- The BeforeAndAfter trait can communicate with the tests only by side effects<br>
+what prevents parallel executions
+- Mixing ParallelTestExecution with BeforeAndAfter runs the tests in their own contexts<br>
+preventing the side effects to mess up the tests and them they can run in parallel
+- BeforeAndAfter is easy to use but doesn't support stacking
+
+### Composing fixtures by stacking traits
+
+- Stacking is technic to combine fixture traits to solve tests requirements,<br>
+they are used because in some tests there is the need to combine different fixtures to a set of tests
+- The following example teaches how to apply this technic:
+
+```
+package org.scalatest.examples.flatspec.composingwithfixture
+
+import org.scalatest._
+import collection.mutable.ListBuffer
+
+//Implement each trait extending SuiteMixin
+//Implementing the first trait
+trait Builder extends SuiteMixin { this: Suite =>
+
+  val builder = new StringBuilder
+
+  abstract override def withFixture(test: NoArgTest) = {
+    builder.append("ScalaTest is ")
+    //calls the methdd super.withFixture(test) to stack the fixtures
+    try super.withFixture(test) // To be stackable, must call super.withFixture
+    finally builder.clear()
+  }
+}
+
+//Implementing the second trait
+trait Buffer extends SuiteMixin { this: Suite =>
+
+  val buffer = new ListBuffer[String]
+
+  abstract override def withFixture(test: NoArgTest) = {
+    //calls the methdd super.withFixture(test) to stack the fixtures
+    try super.withFixture(test) // To be stackable, must call super.withFixture
+    finally buffer.clear()
+  }
+}
+
+//The trait will be stacked in the order they are mixed, in this case Buffer will be stacked over Builder
+class ExampleSpec extends AnyFlatSpec with Builder with Buffer {
+
+  "Testing" should "be easy" in {
+    builder.append("easy!")
+    assert(builder.toString === "ScalaTest is easy!")
+    assert(buffer.isEmpty)
+    buffer += "sweet"
+  }
+
+  it should "be fun" in {
+    builder.append("fun!")
+    assert(builder.toString === "ScalaTest is fun!")
+    assert(buffer.isEmpty)
+    buffer += "clear"
+  }
+}
+```
+- The same technic could e apply with BeforeAndAfter
 
