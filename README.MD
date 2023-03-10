@@ -142,5 +142,8 @@ class ExampleSpec extends AnyFlatSpec with Builder with Buffer {
   }
 }
 ```
-- The same technic could e apply with BeforeAndAfter
+- The same technic could be applíed with BeforeAndAfter
 
+## [Sharing tests](src/test/scala/br/com/danilooa/learning/scalatest/calculator/SharingTestsExample.scala)
+
+You can share tests placing them in a stack and then calling behave followed by the test function.
