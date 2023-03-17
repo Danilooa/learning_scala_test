@@ -147,3 +147,9 @@ class ExampleSpec extends AnyFlatSpec with Builder with Buffer {
 ## [Sharing tests](src/test/scala/br/com/danilooa/learning/scalatest/calculator/SharingTestsExample.scala)
 
 You can share tests placing them in a stack and then calling behave followed by the test function.
+
+## [Matchers](src/test/scala/br/com/danilooa/learning/scalatest/calculator/MatchersExamples.scala)
+
+ScalaTest provides a domain specific language (DSL) for expressing assertions in tests using the word should.<br>
+Just mix in should.Matchers.
+There are many ways to use matchers. So, checkout the example from the link above.
