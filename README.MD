@@ -153,3 +153,12 @@ You can share tests placing them in a stack and then calling behave followed by 
 ScalaTest provides a domain specific language (DSL) for expressing assertions in tests using the word should.<br>
 Just mix in should.Matchers.
 There are many ways to use matchers. So, checkout the example from the link above.
+
+## [Mocking with mockito](src/test/scala/br/com/danilooa/learning/scalatest/calculator/mockito/examples/MockitoExamples.scala)
+
+* Mock object
+* Mocking a No-Argument Method (when/thenReturn)
+* Mocking a Method With Parameters (when/thenReturn)
+* Verifying Execution of a Method (verify)
+* ArgumentCaptor to Verify Method Arguments
+* Spy, using a not-mocked object and mixing it with some mocked methods
