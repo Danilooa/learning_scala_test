@@ -162,3 +162,47 @@ There are many ways to use matchers. So, checkout the example from the link abov
 * Verifying Execution of a Method (verify)
 * ArgumentCaptor to Verify Method Arguments
 * Spy, using a not-mocked object and mixing it with some mocked methods
+
+## [Asynchronous testing](src/test/scala/br/com/danilooa/learning/scalatest/calculator/AsyncTestExamples.scala)
+
+* There are async test styles and sync test styles. To write an async test choose one of these styles:
+  * AsyncFeatureSpec
+  * AsyncFlatSpec
+  * AsyncFreeSpec
+  * AsyncFunSpec
+  * AsyncFunSuite
+  * AsyncWordSpec
+* Tests in an async style suite must return Future[Assertion];
+* Tests that return only assertions will be converted to return Future[Assertion];
+* If a test doesn't return Assertion or neither Future[Assertion], finish the test with the key word succeed.
+This will force the method to return an assertion;
+* By default, there will be one thread by suite and also one by test but the test threads will be queued;
+* The default could be changed;
+* The tasks inside the test body will be queued and executed serially by the test thread;
+* If a task queue gets empty it blocks than blocking the test thread itself; 
+* The test thread executes on a serial task queue to avoid the drawbacks 
+of sharing mutable resources among different tasks of the same test;
+* When a test body finishes it asks for a thread to be completed.
+Since there could be many test tasks asking for new threads,
+problems with timeouts could occur as the number of test tasks could be higher
+than the number of threads available in the pool;
+* Use a traditional test style if you want to block somewhere inside the test body.
+Because tests works on a serial queue the block inside the test will block forever.
+
+### Serial and parallel execution
+
+* There are three variables to consider to parallel test executions:
+  * Mixing in ParallelTestExecution
+  * Turning on parallel execution in the build
+  * Using a serial or parallel execution context
+* By default tests run serially;
+* To run tests in parallel you should mix ParallelTestExecution and enable parallel execution of tests in your build;
+* ParallelTestExecution extends OneInstancePerTest than each test runs in its own instance of the test class.<br>
+So, there is no need to worry about synchronizing access to mutable instance state;
+* The tasks inside the test body run serially by the same thread that starts the test body;
+* ParallelTestExecution mixed + parallel/thread pool + parallel execution setting turned on = Tests start and run in parallel
+* ParallelTestExecution mixed + parallel/thread pool + parallel execution setting turned off = Tests start sequentially but run in parallel
+* ParallelTestExecution mixed + serial test context = Tests start and run sequentially and parallel execution setting is ignored
+
+
+
