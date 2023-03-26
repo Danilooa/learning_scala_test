@@ -203,6 +203,7 @@ So, there is no need to worry about synchronizing access to mutable instance sta
 * ParallelTestExecution mixed + parallel/thread pool + parallel execution setting turned on = Tests start and run in parallel
 * ParallelTestExecution mixed + parallel/thread pool + parallel execution setting turned off = Tests start sequentially but run in parallel
 * ParallelTestExecution mixed + serial test context = Tests start and run sequentially and parallel execution setting is ignored
+* [Testing asynchronously with fixtures using the loan pattern](src/test/scala/br/com/danilooa/learning/scalatest/calculator/AsyncLoanFixtureMethodExample.scala)
 
 
 
